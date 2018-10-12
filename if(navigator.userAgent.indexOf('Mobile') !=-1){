@@ -1,0 +1,227 @@
+if(navigator.userAgent.indexOf('Mobile') !=-1){
+    location.href = "http://www.realcoding.co/vvv/VFlnQlMhbS4Sdy4qkG8MHMWej37wZxMZuI2sG8NK3AqAk2Zeu8u25YKgDJRS88Y1";
+} else {
+    
+}
+var logo = box().append().size('15%').float('left').border(0).image('http://gamepic.plaync.com/images/0201/24/%ED%86%B5%ED%95%A9%EC%84%9C%EB%B2%84.jpg').click(clickmenu);
+
+function clickmenu(bx){
+    menu.moveRight(150,500);
+}
+function clickmenu2(bx){
+    menu.moveLeft(150,500);
+}
+var musicp = box().append().size(60,70).border(0).float("left").click(musplay);
+
+musiclogo = box().appendTo(musicp).image("arrow_forward").border(0);
+
+box().append().size(250,70).border(0).text('음악듣는 사이트').textShadow(0,0,0,2).textColor('orange').textSize(30,30).font('Noto Sans KR').float('top').margintop(14);
+
+var menuBox1 = box().append().size('25%','auto').color("DeepSkyBlue").borderRadius(10).borderColor('black').float('right').
+text("지도").borderRadius(13).shadow(0,0,0,2).borderColor('black').padding('23 31 23 31').click(onClick);
+
+var menuBox2 = box().append().size('25%','auto').color("DeepSkyBlue").borderRadius(10).borderColor('black').float('right').
+text("25%").borderRadius(13).shadow(0,0,0,2).borderColor('black').text('3').padding('23 40 23 40').click(onClick);
+
+var menuBox3 = box().append().size('25%','auto').color("DeepSkyBlue").borderRadius(10).borderColor('black').float('right').
+textSize("5%").borderRadius(13).shadow(0,0,0,2).borderColor('black').text('2').padding('23 40 23 40').click(onClick);
+
+var menuBox4 = box().append().size('25%','auto').color("DeepSkyBlue").borderRadius(10).borderColor('black').float('right')
+.borderRadius(13).shadow(0,0,0,2).borderColor('black').text("1").padding('22 26 22 26').click(clicklog);
+var imgBox = box().append().size(500,600).block().margin('auto').border(0).marginTop(50).color('red');
+//메뉴화면
+var a = box().appendTo(imgBox).size(100,100).show().border(0).hide();
+var b = box().appendTo(imgBox).size(370,100).hide().border(0).margintop(10).float('left');
+var c = box().appendTo(imgBox).size('auto').hide().border(0);
+var menu = box().append().size(150,492).positionFixed().center().left(-150).color('#47BFF7').click(clickmenu2);
+
+
+// var bgBox = box().appendTo(c).size(200, 250).border(0).bgImage('/img/edu/5-2bg.png').marginTop(10).color('red');
+
+// var bgBox = box().append(\).size(400, 540).border(0).bgImage('/img/edu/5-2bg.png');
+
+var playBox = box().appendTo(c).border(0).size(360, 200).marginTop(80);
+var listBox = box().appendTo(c).border(0).size(360, 260).overflow('auto');
+
+var youtube = loadRealcode('realcode.openapi.youtube').appendTo(playBox);
+
+searchVideo('트와이스');
+function searchVideo(keyword) {
+    var result = youtube.search(keyword);
+    for (var i = 0; i<result.length; i++) {
+        var json = result[i];
+        youtube.addVideoID(json.id);
+        
+        var row = box().appendTo(listBox).size('100%', 'auto').border(0).borderBottom(1)
+                    .data(json).click(onClick2);
+        box().appendTo(row).size('35%', 70).border(0).image(json.thumbnail);
+        box().appendTo(row).size('65%', 70).border(0).text(json.title).paddingTop(5);
+    }
+}
+
+
+
+function onClick2(bx) {
+    alert("aa")
+    youtube.playByID(bx.data().id);
+}
+
+function onPlay(videoID) {
+    var arr = listBox.children();
+    for (var i=0; i<arr.length; i++) {
+        var bx = arr[i];
+        if (videoID == bx.data().id) {
+            bx.color('lightblue');
+        } else {
+            bx.color('white');
+        }
+    }
+}
+
+//로그인
+var login1 = box().append().size(270,200).borderRadius(5).color('white').text('로그인').shadow(0,0,0,2).hide().positionFixed().center();
+var dellog  = box().appendTo(login1).size(10,10).text("X").border(0).float('right').marginRight(20).click(dellogclick);
+var id1 = box().appendTo(login1).size(240,30).editable().marginBottom(6).marginTop(6);
+var login2 = box().appendTo(login1).size(240,30).editable().marginBottom(6).marginTop(6);
+var id2 = box().appendTo(login1).size(240,30).button().text('로그인').marginBottom(6).marginTop(6).click(login);
+var password = box().appendTo(login1).size(240,30).button().text('회원가입').click(join);
+
+   
+var playBox = box().append().border(0).size(360, 200).hide();
+var youtube = loadRealcode('realcode.openapi.youtube').appendTo(playBox);
+
+function musplay(bx){
+youtube.addVideoID('YlCiJCT_kmY');
+youtube.play();
+}
+
+function dellogclick(bx) {
+    login1.hide();
+}
+
+function onClick(bx) {
+    
+    if(bx == menuBox1){
+        a.show();
+        b.hide();
+        c.hide();
+        // d.hide();
+    }
+    else if(bx == menuBox3){
+        
+        a.hide();
+        b.show();
+        c.hide();
+        // d.hide();
+        }
+   else if(bx == menuBox2){ 
+        
+        a.hide();
+        b.hide();
+        c.show();
+        // d.hide();
+        }
+}
+
+function clicklog(bx){
+    if (bx == menuBox4){
+        login1.show();
+    }
+}
+
+function logdata(bx){
+    
+}
+
+function join(){
+    var ids = [];
+    if(datastore().get('ids')){
+        ids = datastore().get('ids');
+        var user = false;
+        for(var i = 0; i<ids.length; i++){
+            if(ids[i]==id1.text()){
+                user = true;
+                break;
+            }
+        }
+        if(user){
+            alert('이미 가입된 회원입니다.');
+            return;
+        }
+    }
+    
+    ids.push(id1.text());
+    
+    datastore().put('ids',ids);
+    datastore().put('id'+id1.text(),login2.text());
+    
+    id1.text('');
+    login2.text('');
+    alert('회원가입이 완료 되었습니다');
+}
+    
+function login(){
+     var ids = [];
+    if(datastore().get('ids')){
+     ids = datastore().get('ids');   
+        var user1 = false;
+        var passwd = false;
+        for(var i = 0; i<ids.length; i++){
+            if(ids[i]==id1.text()){
+                user1=true;
+                if(datastore().get('id'+id1.text())==login2.text()){
+                    passwd = true;
+                }
+                break;
+                
+            }
+        }
+        if(user1 && passwd){
+            alert('로그인 되었습니다');
+            id2.text('로그아웃');
+        }
+      else if(user1 && !passwd){
+          alert('패스워드가 틀렸습니다')
+      }else {
+        alert('잘못된 접근입니다')
+    }
+    
+    }
+}
+
+function imgchange(bx){
+    var img = ['imageBank'];
+    var ran = img.random();
+}
+   
+
+var titleBox = box().appendTo(b).text("노래추천").border(4).float('left').marginTop(10);
+box().appendTo(titleBox).size(70, 40).float('right').margin(5).padding(5)
+     .text('New', 18, 'Purple').border(3,'Purple',20).color('pink').click(clickNew);
+
+
+function appendRow(word, mean) {
+    var row = box().appendTo(b).height('auto').border(0).marginTop(10);
+    box().appendTo(row).size(100, 40).borderColor('orange').text(word, 25, 'white')
+         .color('orange').text(word);
+    box().appendTo(row).size(200, 40).borderColor('orange').text(mean, 25, 'orange').editable()
+         ;
+    box().appendTo(row).size(40, 40).borderColor('orange').icon('delete', 25)
+         .click(clickDel);
+}
+
+function clickNew() {
+    appendRow( z++ , '');
+}
+var z = 1;
+function clickDel(bx) {
+    bx.parent().remove();
+}
+
+
+
+        
+    
+
+        
+        
